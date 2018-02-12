@@ -14,7 +14,6 @@ services:
       restart_policy: 
         condition: on-failure
 
-
   result:
     image: docker/example-voting-app-result:latest
     ports:
