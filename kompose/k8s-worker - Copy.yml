@@ -1,4 +1,4 @@
-apiVersion: apps/v1beta1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
@@ -12,7 +12,7 @@ spec:
         app: worker
     spec:
       containers:
-      - image: docker/example-voting-app-worker:latest
+      - image: worker
         name: worker
       restartPolicy: Always
 ---

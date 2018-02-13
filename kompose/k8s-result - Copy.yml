@@ -1,4 +1,4 @@
-apiVersion: apps/v1beta1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
@@ -16,10 +16,11 @@ spec:
         - nodemon
         - --debug
         - server.js
-        image: docker/example-voting-app-result:latest
+        image: result
         name: result
         ports:
         - containerPort: 80
+        - containerPort: 5858
       restartPolicy: Always
 ---
 apiVersion: v1
@@ -29,8 +30,13 @@ metadata:
     app: result
   name: result
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
-  - port: 80
+  - name: "5001"
+    port: 5001
+    targetPort: 80
+  - name: "5858"
+    port: 5858
+    targetPort: 5858
   selector:
     app: result

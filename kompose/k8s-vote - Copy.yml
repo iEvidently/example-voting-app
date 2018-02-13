@@ -1,23 +1,22 @@
-apiVersion: apps/v1beta1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    app: result
-  name: result
+    app: vote
+  name: vote
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: result
+        app: vote
     spec:
       containers:
       - args:
-        - nodemon
-        - --debug
-        - server.js
-        image: docker/example-voting-app-result:latest
-        name: result
+        - python
+        - app.py
+        image: vote
+        name: vote
         ports:
         - containerPort: 80
       restartPolicy: Always
@@ -26,11 +25,12 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: result
-  name: result
+    app: vote
+  name: vote
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
-  - port: 80
+  - port: 5000
+    targetPort: 80
   selector:
-    app: result
+    app: vote
