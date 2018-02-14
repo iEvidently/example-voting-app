@@ -5,7 +5,6 @@ metadata:
     app: redis
   name: redis
 spec:
-  replicas: 1
   template:
     metadata:
       labels:
